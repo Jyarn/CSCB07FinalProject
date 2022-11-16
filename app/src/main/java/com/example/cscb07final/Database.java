@@ -28,4 +28,22 @@ public class Database {
             return false;
         }
     }
+
+    public boolean cd (String newDir) {
+        for (String i : newDir.split("/")) {
+            if (i.equals("")) {
+                this.dir = dir.getRoot();
+            }
+
+            else if (i.equals("..")) {
+                this.dir = dir.getParent();
+            }
+
+            else {
+                this.dir = dir.child(i);
+            }
+        }
+        
+        return true;
+    }
 }
