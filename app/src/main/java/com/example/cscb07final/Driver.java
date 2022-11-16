@@ -11,7 +11,7 @@ public class Driver {
 
     public void main () {
         Database ddb = new Database("https://cscb07finalproject-default-rtdb.firebaseio.com/", "some");
-
-        ddb.write("what's a matter baby");
+        //ddb.write("matter baby");
+        Log.e("sdfsfsf", (String)ddb.read());
     }
 }
