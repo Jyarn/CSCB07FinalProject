@@ -4,11 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
     tools:context="app.SecondFragment">
-=======
-    tools:context=".SecondFragment">
->>>>>>> c12782dab5a1dcf1352a1ce687f26e67a48000e8
 
     <TextView
         android:id="@+id/textview_second"
