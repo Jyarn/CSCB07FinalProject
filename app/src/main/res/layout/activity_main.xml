@@ -4,7 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     tools:context="app.MainActivity">
+=======
+    tools:context=".MainActivity">
+>>>>>>> c12782dab5a1dcf1352a1ce687f26e67a48000e8
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
