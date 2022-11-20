@@ -1,4 +1,4 @@
-package com.example.cscb07final;
+package ddb;
 
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -13,22 +13,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-class readOnce implements OnCompleteListener<DataSnapshot> {
-    public Object ret;
-    public boolean lock;
-
-    public readOnce () {
-        this.ret = ":(";
-        this.lock = true;
-    }
-
-    @Override
-    public void onComplete(@NonNull Task<DataSnapshot> task) {
-        this.ret = task.getResult().getValue();
-        this.lock = false;
-    }
-}
 
 public class Database {
     private DatabaseReference dir;
@@ -55,8 +39,10 @@ public class Database {
 
     public boolean cd (String newDir) {
         try {
-            for (String i : newDir.split("/")) {
-                if (i.equals("")) {
+            boolean c = true;
+
+            for (String i : newDir.split("/")) { // refactor maybe?
+                if (i.equals("") && c) {
                     this.dir = dir.getRoot();
                 }
 
@@ -67,6 +53,8 @@ public class Database {
                 else {
                     this.dir = dir.child(i);
                 }
+
+                c = false;
             }
         }
 
@@ -82,9 +70,7 @@ public class Database {
         try {
             Task<DataSnapshot> task = dir.get();
 
-            while (!task.isComplete()) {
-
-            }
+            while (!task.isComplete()) {}
 
             return task.getResult().getValue();
         }
@@ -93,5 +79,16 @@ public class Database {
             Log.e("ddb", err.getMessage());
             return "err";
         }
+    }
+
+    public boolean remove () {
+        try {
+            dir.removeValue();
+        }
+
+        catch (DatabaseException err) {
+            Log.e("ddb", err.getMessage());
+        }
+        return true;
     }
 }
