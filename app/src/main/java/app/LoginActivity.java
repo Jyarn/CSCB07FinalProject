@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,13 +22,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     EditText email;
     EditText password;
     Button btnLogin;
     FirebaseAuth auth;
     FirebaseUser currentUser;
     String possiblePattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    Spinner spinner;
+    String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +39,11 @@ public class LoginActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.signUp);
         email = findViewById(R.id.inputUserName);
         password = findViewById(R.id.inputPassword);
+        //password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         btnLogin=findViewById(R.id.loginButton);
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
+        spinner = findViewById(R.id.spinnerId);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,6 +57,20 @@ public class LoginActivity extends AppCompatActivity {
                 performAuthentication();
             }
         });
+        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.user, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+    }
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        userType=parent.getItemAtPosition(position).toString();
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     private void performAuthentication() {
@@ -79,7 +101,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goToNextActivity() {
-        Intent intent=new Intent(app.LoginActivity.this,app.HomePage.class);
-        startActivity(intent);
-    }
+        if(userType.equalsIgnoreCase("admin")){
+        Intent intent=new Intent(app.LoginActivity.this,app.AdminActivity.class);
+        startActivity(intent);}
+        else{
+
+            Intent intent2=new Intent(app.LoginActivity.this,app.StudentActivity.class);
+            startActivity(intent2);}
+
+        }
+
+
+
 }
