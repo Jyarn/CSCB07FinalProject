@@ -32,12 +32,8 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     FirebaseAuth auth;
     FirebaseUser currentUser;
     String possiblePattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-<<<<<<< Updated upstream
     Spinner spinner;
     String userType;
-=======
-    private FirebaseAnalytics mFirebaseAnalytics;
->>>>>>> Stashed changes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +113,4 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
             startActivity(intent2);}
 
         }
-
-
-
 }

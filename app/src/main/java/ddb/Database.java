@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Database {
+    final String url = "https://cscb07finalproject-default-rtdb.firebaseio.com/";
     private DatabaseReference dir;
 
     public Database (String url) {
