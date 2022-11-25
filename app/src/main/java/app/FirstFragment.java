@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment;
 import com.example.cscb07final.R;
 import com.example.cscb07final.databinding.FragmentFirstBinding;
 
+import ddb.Database;
+import login.Student;
+
 public class FirstFragment extends Fragment {
     private FragmentFirstBinding binding;
 
@@ -19,7 +22,6 @@ public class FirstFragment extends Fragment {
         binding = FragmentFirstBinding.inflate(inflater, container, false);
 
         View fragmentFirstLayout = inflater.inflate(R.layout.fragment_first, container, false);
-        MainActivity.funnyText = fragmentFirstLayout.findViewById(R.id.textView);
         return fragmentFirstLayout;
 
     }

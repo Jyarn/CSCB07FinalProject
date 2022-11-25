@@ -21,6 +21,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.analytics.FirebaseAnalytics;
+
+import login.Run;
 
 public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     EditText email;
@@ -29,8 +32,12 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     FirebaseAuth auth;
     FirebaseUser currentUser;
     String possiblePattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+<<<<<<< Updated upstream
     Spinner spinner;
     String userType;
+=======
+    private FirebaseAnalytics mFirebaseAnalytics;
+>>>>>>> Stashed changes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
