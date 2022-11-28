@@ -9,4 +9,27 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+
+    <string name="admin_add_course">Add new course</string>
+    <string name="admin_edit_course">Edit course</string>
+    <string name="admin_remove_course">Remove course</string>
+
+    <string name="admin_logout">Log out</string>
+    <string name="admin_login">Login as admin</string>
+
+    <string name="admin_return_main">Go back</string>
+
+    <string name="admin_add_new_course_title">Create new course</string>
+    <string name="admin_save_new_course">Save new course</string>
+
+    <string name="admin_edit_course_title">Edit existing course</string>
+    <string name="admin_save_edited_course">Save edited course</string>
+
+    <string name="course_name_recycler">Course name:</string>
+    <string name="course_code_recycler">Course code:</string>
+    <string name="course_session_recycler">Course session:</string>
+
+    <string name="cancel">Cancel</string>
+
 </resources>

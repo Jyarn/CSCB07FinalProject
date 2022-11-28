@@ -48,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-        new Driver().main();
+        //new Driver().main();
     }
 
     @Override

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/AdminHomeFragment">
 
     <fragment
         android:id="@+id/FirstFragment"
@@ -12,17 +12,47 @@
         tools:layout="@layout/fragment_first">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_action_FirstFragment_to_AdminHomeFragment"
+            app:destination="@id/AdminHomeFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="app.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/AdminHomeFragment"
+        android:name="app.AdminHome"
+        android:label="Admin Home"
+        tools:layout="@layout/admin_home">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            android:id="@+id/action_AdminHomeFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+
+        <action
+            android:id="@+id/action_AdminHomeFragment_to_AdminAddNewCourse"
+            app:destination="@id/AdminAddNewCourse" />
+
+        <action
+            android:id="@+id/action_AdminHomeFragment_to_AdminEditCourse"
+            app:destination="@id/AdminEditCourse" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AdminAddNewCourse"
+        android:name="app.AdminAddNewCourse"
+        android:label="Admin: Add New Course"
+        tools:layout="@layout/admin_add_new_course">
+
+        <action
+            android:id="@+id/action_AdminAddNewCourseFragment_to_AdminHomeFragment"
+            app:destination="@id/AdminHomeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AdminEditCourse"
+        android:name="app.AdminEditCourse"
+        android:label="Admin: Edit Course"
+        tools:layout="@layout/admin_edit_course">
+
+        <action
+            android:id="@+id/action_AdminEditCourseFragment_to_AdminHomeFragment"
+            app:destination="@id/AdminHomeFragment" />
     </fragment>
 </navigation>
