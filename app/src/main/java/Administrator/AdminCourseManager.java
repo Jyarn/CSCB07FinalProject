@@ -1,29 +1,34 @@
-package app;
+package Administrator;
 
 import java.util.HashSet;
 
 public class AdminCourseManager {
 
     public static AdminCourseManager courseList;
-    protected HashSet<AdminCourse> allCourses;
-    String lastAction;
+    protected HashSet<Course> allCourses;
+    String lastAction; //There probably is a better way to send this information around but I don't know how. Maybe through view binding or accessing the parent :\
 
     private AdminCourseManager(){
-        allCourses = new HashSet<AdminCourse>();
-        this.lastAction = "No new actions";
+        allCourses = new HashSet<Course>();
+        //updateCourses();
+        this.lastAction = "No recent action";
     }
 
+    public void updateCourses(){
+        allCourses = ReadCourse.readAllCourses();
+    }
     public static AdminCourseManager getInstance(){
         if(courseList == null)
             courseList = new AdminCourseManager();
         return courseList;
     }
 
-    public void addCourse(AdminCourse newCourse){
+    public void addCourse(Course newCourse){
         this.allCourses.add(newCourse);
     }
 
-    public void removeCourse(AdminCourse defunctCourse){
+    public void removeCourse(Course defunctCourse){
+
         this.allCourses.remove(defunctCourse);
     }
 

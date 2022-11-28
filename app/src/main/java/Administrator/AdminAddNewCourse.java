@@ -1,4 +1,4 @@
-package app;
+package Administrator;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +17,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.cscb07final.*;
 import com.example.cscb07final.databinding.AdminAddNewCourseBinding;
 
+import org.w3c.dom.Text;
+
 import java.util.HashSet;
 
 public class AdminAddNewCourse extends Fragment {
@@ -25,11 +27,14 @@ public class AdminAddNewCourse extends Fragment {
     EditText textAddCourseName;
     EditText textAddCourseCode;
     EditText textAddCourseSession;
-    TextView textAddCourseFeedback;
+    EditText textAddCoursePrerequisite;
+    TextView textAddCoursePrerequisiteCount;
+    TextView textAddCoursePrerequisiteDisplay;
     TextView textAddCourseSessionCount;
+    TextView textAddCourseSessionDisplay;
     TextView textAdminMainInfo;
     View adminNewCourseView;
-//textAdminMainInfo
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -43,20 +48,34 @@ public class AdminAddNewCourse extends Fragment {
     // AdminAddCourseFeedback
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        HashSet<String> courseSessions = new HashSet<String>();
+        HashSet<String> offeringSessions = new HashSet<String>();
+        HashSet<String> prerequisites = new HashSet<String>();
 
         textAddCourseCode = (EditText) view.findViewById(R.id.editTextNewCourseCode);
         textAddCourseName = (EditText) view.findViewById(R.id.editTextNewCourseName);
         textAddCourseSession = (EditText) view.findViewById(R.id.editTextNewSession);
-        textAddCourseFeedback = (TextView) view.findViewById(R.id.adminAddCourseFeedback);
+        textAddCoursePrerequisite = (EditText) view.findViewById(R.id.editTextNewPrerequisite);
+        textAddCoursePrerequisiteCount = (TextView) view.findViewById(R.id.adminAddCoursePrerequisiteCount);
+        textAddCoursePrerequisiteDisplay = (TextView) view.findViewById(R.id.adminAddCoursePrerequisiteDisplay);
         textAdminMainInfo = (TextView) view.findViewById(R.id.textAdminMainInfo);
         textAddCourseSessionCount = (TextView) view.findViewById(R.id.adminAddCourseSessionCount);
+        textAddCourseSessionDisplay = (TextView) view.findViewById(R.id.adminAddCourseSessionDisplay);
         textAddCourseSessionCount.setText("0");
+        textAddCoursePrerequisiteDisplay.setText("0");
+
+        binding.adminNewCourseAddPrerequisiteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addPrerequisiteText(prerequisites);
+                textAddCoursePrerequisiteDisplay.setText(combineStrings(prerequisites));
+            }
+        });
 
         binding.adminNewCourseAddSessionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addSessionText(courseSessions);
+                addSessionText(offeringSessions);
+                textAddCourseSessionDisplay.setText(combineStrings(offeringSessions));
             }
         });
 
@@ -68,6 +87,7 @@ public class AdminAddNewCourse extends Fragment {
             }
         });
 
+
         binding.adminSaveNewCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +97,7 @@ public class AdminAddNewCourse extends Fragment {
                 if (String.valueOf(textAddCourseName.getText()) != null &&
                         String.valueOf(textAddCourseCode.getText()) != null){
 
-                    addSessionText(courseSessions);
+                    addSessionText(offeringSessions);
 
                     courseName =  String.valueOf(textAddCourseName.getText());
                     courseCode = String.valueOf(textAddCourseCode.getText());
@@ -85,7 +105,7 @@ public class AdminAddNewCourse extends Fragment {
                     AdminCourseManager am = AdminCourseManager.getInstance();
                     am.setAction("Just added course: "+courseName+", "+courseCode);
 
-                    AdminCourse newCourse = new AdminCourse(courseCode, courseName, courseSessions);
+                    Course newCourse = new Course(courseCode, courseName, offeringSessions, prerequisites);
                     am.addCourse(newCourse);
                     NavHostFragment.findNavController(AdminAddNewCourse.this)
                             .navigate(R.id.action_AdminAddNewCourseFragment_to_AdminHomeFragment);
@@ -98,12 +118,34 @@ public class AdminAddNewCourse extends Fragment {
         String session = String.valueOf(textAddCourseSession.getText());
         if (session.length() != 0) {
             textAddCourseSession.setText("");
-            textAddCourseFeedback.setText(session);
             courseSessions.add(session);
             textAddCourseSessionCount.setText(String.valueOf(courseSessions.size()));
         }
-
     }
+
+    protected void addPrerequisiteText(HashSet<String> prerequisites){
+        String prereq = String.valueOf(textAddCoursePrerequisite.getText());
+        if (prereq.length() != 0) {
+            textAddCoursePrerequisite.setText("");
+            prerequisites.add(prereq);
+            textAddCoursePrerequisiteCount.setText(String.valueOf(prerequisites.size()));
+        }
+    }
+
+    protected String combineStrings(HashSet<String> strings){
+        String combinedString = "";
+        int sessionNum = 0;
+        for (String element : strings) {
+            if(sessionNum>0)
+                combinedString = combinedString + ", " + element;
+            else{
+                combinedString = element;
+            }
+            sessionNum++;
+        }
+        return combinedString;
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

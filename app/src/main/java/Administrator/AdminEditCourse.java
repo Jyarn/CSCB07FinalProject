@@ -1,4 +1,4 @@
-package app;
+package Administrator;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

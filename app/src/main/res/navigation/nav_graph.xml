@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/AdminHomeFragment"
-        android:name="app.AdminHome"
+        android:name="Administrator.AdminHome"
         android:label="Admin Home"
         tools:layout="@layout/admin_home">
 
@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/AdminAddNewCourse"
-        android:name="app.AdminAddNewCourse"
+        android:name="Administrator.AdminAddNewCourse"
         android:label="Admin: Add New Course"
         tools:layout="@layout/admin_add_new_course">
 
@@ -47,7 +47,7 @@
 
     <fragment
         android:id="@+id/AdminEditCourse"
-        android:name="app.AdminEditCourse"
+        android:name="Administrator.AdminEditCourse"
         android:label="Admin: Edit Course"
         tools:layout="@layout/admin_edit_course">
 

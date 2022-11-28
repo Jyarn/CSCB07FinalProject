@@ -1,4 +1,4 @@
-package app;
+package Administrator;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,11 +15,11 @@ import java.util.List;
 public class AdminRecyclerViewAdapter extends RecyclerView.Adapter<AdminRecyclerViewHolder> {
 
     Context context;
-    List<AdminCourse> courses;
+    List<Course> courses;
     private AdminRecyclerViewHolder holder;
     private int position;
 
-    public AdminRecyclerViewAdapter(Context newContext, List<AdminCourse> newCourses){
+    public AdminRecyclerViewAdapter(Context newContext, List<Course> newCourses){
         this.context = newContext;
         this.courses = newCourses;
 
@@ -38,7 +38,7 @@ public class AdminRecyclerViewAdapter extends RecyclerView.Adapter<AdminRecycler
     @Override
     public void onBindViewHolder(@NonNull AdminRecyclerViewHolder holder, int position) {
         holder.nameView.setText(courses.get(position).getName());
-        holder.codeView.setText(courses.get(position).getCode());
+        holder.codeView.setText(courses.get(position).getCourseCode());
         holder.sessionCountView.setText(courses.get(position).getSessionCount());
 //        holder.iconView.setText(courses.get(position).getIcon());
     }

@@ -1,4 +1,4 @@
-package app;
+package Administrator;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,7 +24,7 @@ public class AdminHome extends Fragment {
     private RecyclerView recyclerView;
     TextView textAdminMainCourseCount;
     TextView textAdminMainInfo;
-    List<AdminCourse> courseList = new ArrayList<AdminCourse>();
+    List<Course> courseList = new ArrayList<Course>();
 
     AdminCourseManager acm = AdminCourseManager.getInstance();
 
@@ -35,7 +35,7 @@ public class AdminHome extends Fragment {
     ) {
         View view = inflater.inflate(R.layout.admin_home, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
-//
+
 //        HashSet<String> sessions = new HashSet<>();
 //        sessions.add("01");
 //        sessions.add("02");
@@ -44,7 +44,7 @@ public class AdminHome extends Fragment {
 //        acm.addCourse(test1);
 //        acm.addCourse(test2);
 
-        for(AdminCourse course: acm.allCourses){
+        for(Course course: acm.allCourses){
             courseList.add(course);
         }
 
@@ -54,7 +54,7 @@ public class AdminHome extends Fragment {
         recyclerView.setAdapter(adapter);
 
         AdminCourseManager acm = AdminCourseManager.getInstance();
-        //acm.setAction("Total list length: "+courseList.size());
+        acm.setAction("Total list length: "+courseList.size());
 
         binding = AdminHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -63,7 +63,7 @@ public class AdminHome extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textAdminMainCourseCount = (TextView) view.findViewById(R.id.textAdminMainCourseCount);
-        textAdminMainCourseCount.setText("Total courses: "+acm.courseCount());
+        //textAdminMainCourseCount.setText("Total courses: "+acm.courseCount());
         textAdminMainInfo = (TextView) view.findViewById(R.id.textAdminMainInfo);
         textAdminMainInfo.setText(acm.lastAction);
 

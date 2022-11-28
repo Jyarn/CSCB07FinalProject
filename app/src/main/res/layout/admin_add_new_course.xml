@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/returnAdminHomeButton">
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="288dp"
             android:layout_height="match_parent">
 
             <TextView
@@ -61,7 +61,7 @@
 
             <EditText
                 android:id="@+id/editTextNewCourseName"
-                android:layout_width="75dp"
+                android:layout_width="117dp"
                 android:layout_height="50dp"
                 android:ems="10"
                 android:inputType="textPersonName" />
@@ -87,6 +87,54 @@
                 android:inputType="textPersonName" />
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/adminNewCourseAddPrerequisiteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+ prereq"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editTextNewPrerequisite"
+                android:layout_width="75dp"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:inputType="textPersonName" />
+        </TableRow>
+
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prerequisites:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/adminAddCoursePrerequisiteDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total prereqs:"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/adminAddCoursePrerequisiteCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
@@ -96,7 +144,7 @@
                 android:id="@+id/adminNewCourseAddSessionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add session:"
+                android:text="+ session"
                 android:textStyle="bold" />
 
             <EditText
@@ -108,50 +156,30 @@
         </TableRow>
 
         <TableRow>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Last session added:"
+                android:text="Current sessions:"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/adminAddCourseFeedback"
+                android:id="@+id/adminAddCourseSessionDisplay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="" />
         </TableRow>
 
         <TableRow>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total sessions:"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/adminAddCourseSessionCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="75dp"
-            android:layout_height="match_parent">
-
             <TextView
-                android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Notes:"
+                android:text="Total sessions:"
                 android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/editTextTextPersonName4"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:ems="10"
-                android:inputType="textPersonName" />
+            <TextView
+                android:id="@+id/adminAddCourseSessionCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
         </TableRow>
     </TableLayout>
 
