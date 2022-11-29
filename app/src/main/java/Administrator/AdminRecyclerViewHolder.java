@@ -8,32 +8,36 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.cscb07final.*;
 
-
-public class AdminRecyclerViewHolder extends RecyclerView.ViewHolder  {
+//public class AdminRecyclerViewHolder extends RecyclerView.ViewHolder  {
+public class AdminRecyclerViewHolder{
 
 //        ImageView imageView;
-        TextView nameView;
-        TextView codeView;
-        TextView sessionCountView;
+    String viewholderCourseName;
+    String viewholderCourseCode;
+    int viewholderSessionCount;
+    int viewholderPrerequisiteCount;
 
-        public AdminRecyclerViewHolder(@NonNull View itemView) {
-            super(itemView);
-//            imageView = itemView.findViewById(R.id.course_icon);
-            nameView = itemView.findViewById(R.id.course_name);
-            codeView = itemView.findViewById(R.id.course_code);
-            sessionCountView = itemView.findViewById(R.id.course_sessions_count);
-        }
+    public AdminRecyclerViewHolder(String viewholderCourseName, String viewholderCourseCode, int viewholderSessionCount, int viewholderPrerequisiteCount) {
+        //super(itemView);
+        this.viewholderCourseName = viewholderCourseName;
+        this.viewholderCourseCode = viewholderCourseCode;
+        this.viewholderSessionCount = viewholderSessionCount;
+        this.viewholderPrerequisiteCount = viewholderPrerequisiteCount;
+    }
 
-//    public ImageView getImageView() {
-//            return imageView;
-//    }
-    public TextView getnameView(){
-            return nameView;
+    public String getViewholderCourseName() {
+        return viewholderCourseName;
     }
-    public TextView getcodeView(){
-            return codeView;
+
+    public String getViewholderCourseCode() {
+        return viewholderCourseCode;
     }
-    public TextView sessionCountView(){
-            return sessionCountView;
+
+    public int getViewholderSessionCount() {
+        return viewholderSessionCount;
+    }
+
+    public int getViewholderPrerequisiteCount() {
+        return viewholderPrerequisiteCount;
     }
 }

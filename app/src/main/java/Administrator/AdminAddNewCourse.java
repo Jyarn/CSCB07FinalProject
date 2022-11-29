@@ -17,8 +17,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.cscb07final.*;
 import com.example.cscb07final.databinding.AdminAddNewCourseBinding;
 
-import org.w3c.dom.Text;
-
 import java.util.HashSet;
 
 public class AdminAddNewCourse extends Fragment {
@@ -57,7 +55,7 @@ public class AdminAddNewCourse extends Fragment {
         textAddCoursePrerequisite = (EditText) view.findViewById(R.id.editTextNewPrerequisite);
         textAddCoursePrerequisiteCount = (TextView) view.findViewById(R.id.adminAddCoursePrerequisiteCount);
         textAddCoursePrerequisiteDisplay = (TextView) view.findViewById(R.id.adminAddCoursePrerequisiteDisplay);
-        textAdminMainInfo = (TextView) view.findViewById(R.id.textAdminMainInfo);
+        textAdminMainInfo = (TextView) view.findViewById(R.id.admin_last_action_textview);
         textAddCourseSessionCount = (TextView) view.findViewById(R.id.adminAddCourseSessionCount);
         textAddCourseSessionDisplay = (TextView) view.findViewById(R.id.adminAddCourseSessionDisplay);
         textAddCourseSessionCount.setText("0");
@@ -103,7 +101,7 @@ public class AdminAddNewCourse extends Fragment {
                     courseCode = String.valueOf(textAddCourseCode.getText());
 
                     AdminCourseManager am = AdminCourseManager.getInstance();
-                    am.setAction("Just added course: "+courseName+", "+courseCode);
+                    am.setLastAction("Just added course: "+courseName+", "+courseCode);
 
                     Course newCourse = new Course(courseCode, courseName, offeringSessions, prerequisites);
                     am.addCourse(newCourse);

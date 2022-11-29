@@ -62,6 +62,9 @@ public class Course {
         return offeringSessions.size();
     }
 
+    // added by Pieter
+    public int getPrerequisiteCount(){ return prerequisites.size(); }
+
     //added by Pieter
     public HashSet<String> getOfferingSessions(){
         return offeringSessions;

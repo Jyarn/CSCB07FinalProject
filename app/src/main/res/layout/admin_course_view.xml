@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     xmlns:tools="http://schemas.android.com/tools">
-    
+
     <ImageView
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -35,11 +35,20 @@
 
     <TextView
         android:id="@+id/course_sessions_count"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/course_icon"
         android:layout_below="@id/course_code"
-        android:text="Session count: "
+        android:text="Total offering sessions:      "
+        android:textColor="@color/text01"
+        />
+    <TextView
+        android:id="@+id/course_prerequisite_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/course_sessions_count"
+        android:layout_below="@id/course_code"
+        android:text="    Total prerequisites: "
         android:textColor="@color/text01"
         />
     <LinearLayout
