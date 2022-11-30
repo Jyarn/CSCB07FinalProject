@@ -57,24 +57,6 @@ public class Course {
         return prerequisites.contains(course.courseCode);
     }
 
-    // added by Pieter
-    public int getSessionCount(){
-        return offeringSessions.size();
-    }
-
-    // added by Pieter
-    public int getPrerequisiteCount(){ return prerequisites.size(); }
-
-    //added by Pieter
-    public HashSet<String> getOfferingSessions(){
-        return offeringSessions;
-    }
-
-    //added by Pieter
-    public HashSet<String> getPrerequisitess(){
-        return prerequisites;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(name, courseCode);

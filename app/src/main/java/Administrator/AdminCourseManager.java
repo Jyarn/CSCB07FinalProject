@@ -4,14 +4,14 @@ import java.util.HashSet;
 
 public class AdminCourseManager {
 
-    public static AdminCourseManager courseList;
+    public static AdminCourseManager courseManager;
+    //There probably is a better way to send this information around but I don't know how. Maybe through view binding or accessing the parent :\
     protected HashSet<Course> allCourses;
-    String lastAction; //There probably is a better way to send this information around but I don't know how. Maybe through view binding or accessing the parent :\
-    String debugText;
+    String lastAction; String debugText;
 
     private AdminCourseManager(){
         allCourses = new HashSet<Course>();
-        //updateCourses();
+        updateCourses();
         this.lastAction = "No recent action";
         this.debugText = "Debug";
     }
@@ -21,17 +21,17 @@ public class AdminCourseManager {
     }
 
     public static AdminCourseManager getInstance(){
-        if(courseList == null)
-            courseList = new AdminCourseManager();
-        return courseList;
+        if(courseManager == null)
+            courseManager = new AdminCourseManager();
+        return courseManager;
     }
 
     public void addCourse(Course newCourse){
         this.allCourses.add(newCourse);
+        AddCourse.addCourse(newCourse);
     }
 
     public void removeCourse(Course defunctCourse){
-
         this.allCourses.remove(defunctCourse);
     }
 
@@ -49,7 +49,7 @@ public class AdminCourseManager {
 
     public void clear(){
         //just in case
-        courseList = null;
+        courseManager = null;
         allCourses = null;
         //would cause memory leak if C, relying on the garbage collector here
     }

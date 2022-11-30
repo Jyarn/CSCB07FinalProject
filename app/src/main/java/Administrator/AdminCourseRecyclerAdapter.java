@@ -20,8 +20,8 @@ public class AdminCourseRecyclerAdapter extends RecyclerView.Adapter<AdminCourse
     ArrayList<AdminRecyclerViewHolder> viewHolders;
 
     public AdminCourseRecyclerAdapter(Context newContext, ArrayList<AdminRecyclerViewHolder> newViewHolders) {
-        AdminCourseManager acm = AdminCourseManager.getInstance();
-        acm.setDebugText("AdminCourseRecylcerAdapter constructor called");
+        //AdminCourseManager acm = AdminCourseManager.getInstance();
+        //acm.setDebugText("AdminCourseRecylcerAdapter constructor called");
         this.context = newContext;
         this.viewHolders = newViewHolders;
     }

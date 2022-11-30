@@ -103,7 +103,7 @@ public class AdminAddNewCourse extends Fragment {
                     AdminCourseManager am = AdminCourseManager.getInstance();
                     am.setLastAction("Just added course: "+courseName+", "+courseCode);
 
-                    Course newCourse = new Course(courseCode, courseName, offeringSessions, prerequisites);
+                    Course newCourse = new Course(courseName, courseCode, offeringSessions, prerequisites);
                     am.addCourse(newCourse);
                     NavHostFragment.findNavController(AdminAddNewCourse.this)
                             .navigate(R.id.action_AdminAddNewCourseFragment_to_AdminHomeFragment);

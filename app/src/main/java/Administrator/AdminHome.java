@@ -43,6 +43,36 @@ public class AdminHome extends Fragment {
         for(Course course: acm.allCourses){
             courseList.add(course);
         }
+//
+//        HashSet<String> dummy = new HashSet<String>();
+//        Course newC1 = new Course("Calculus 1", "MATA01", dummy, dummy);
+//        AddCourse.addCourse(newC1);
+//        HashSet<String> sessions1 = new HashSet<String>();
+//        sessions1.add("Winter2023");
+//        Course newC2 = new Course("Discrete math", "MATA03", sessions1, dummy);
+//        AddCourse.addCourse(newC2);
+
+//        Course x = new Course("Software Design", "CSCB07");
+//        Course y = new Course("Introduction to Computer Science II", "CSCA48");
+//        x.addOfferingSession("Fall");
+//        x.addOfferingSession("Winter");
+//        x.addOfferingSession("Summer");
+//        x.addPrerequisite(y);
+//        AddCourse.addCourse(x);
+//        AddCourse.addCourse(y);
+
+
+//        String courseInfo = "";
+        HashSet<Course> allCourses = ReadCourse.readAllCourses();
+//        Log.e("something",String.valueOf(allCourses.size()));
+        acm.setDebugText(String.valueOf(allCourses.size()));
+//        int timesRead = 0;
+//        for(Course cors: allCourses){
+//            courseInfo = courseInfo + cors.toString() + " - " ;
+//            timesRead++;
+//        }
+//        acm.setDebugText(courseInfo);
+//        acm.setDebugText(String.valueOf(timesRead));
 
         setupAdminRecyclerViewHolders();
 
@@ -50,7 +80,6 @@ public class AdminHome extends Fragment {
         recyclerView.setAdapter(courseRecycleradapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        AdminCourseManager acm = AdminCourseManager.getInstance();
         acm.setLastAction("Total list length: "+courseList.size());
 
         //examples returns view instead of binding
@@ -97,7 +126,8 @@ public class AdminHome extends Fragment {
     private void setupAdminRecyclerViewHolders(){
         AdminCourseManager acm = AdminCourseManager.getInstance();
         for (Course course: acm.allCourses){
-            recyclerHolders.add(new AdminRecyclerViewHolder(course.name, course.courseCode, course.getSessionCount(),course.getPrerequisiteCount()));
+            //recyclerHolders.add(new AdminRecyclerViewHolder(course.name, course.courseCode, course.getSessionCount(),course.getPrerequisiteCount()));
+            recyclerHolders.add(new AdminRecyclerViewHolder(course.name, course.courseCode, course.offeringSessions.size(),course.prerequisites.size()));
         }
     }
 
