@@ -31,6 +31,12 @@ public class AdminCourseManager {
         AddCourse.addCourse(newCourse);
     }
 
+    public HashSet<Course> getCopyOfCourses(){
+        HashSet<Course> newCopy = new HashSet<Course>();
+        newCopy.addAll(allCourses);
+        return newCopy;
+    }
+
     public void removeCourse(Course defunctCourse){
         this.allCourses.remove(defunctCourse);
     }

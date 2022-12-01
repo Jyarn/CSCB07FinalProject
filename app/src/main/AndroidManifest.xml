@@ -27,6 +27,24 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name="Administrator.AdminMainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.CSCB07Final.NoActionBar">
+        </activity>
+        <activity
+            android:name="Administrator.AdminAddNewCourse"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.CSCB07Final.NoActionBar">
+        </activity>
+        <activity
+            android:name="Administrator.AdminEditCourse"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.CSCB07Final.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

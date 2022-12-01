@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/AdminHomeFragment">
+    app:startDestination="@id/FirstFragment">
 
     <fragment
         android:id="@+id/FirstFragment"
@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/AdminAddNewCourse"
-        android:name="Administrator.AdminAddNewCourse"
+        android:name="Administrator.AdminAddNewCourse01"
         android:label="Admin: Add New Course"
         tools:layout="@layout/admin_add_new_course">
 
@@ -47,7 +47,7 @@
 
     <fragment
         android:id="@+id/AdminEditCourse"
-        android:name="Administrator.AdminEditCourse"
+        android:name="Administrator.AdminEditCourse01"
         android:label="Admin: Edit Course"
         tools:layout="@layout/admin_edit_course">
 

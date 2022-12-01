@@ -1,25 +1,21 @@
 package Administrator;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.appcompat.app.AppCompatActivity;
 
-//import com.example.adminmainsection01.databinding.AdminAddNewCourseBinding;
-//import com.example.app.databinding.AdminAddNewCourseBinding;
-
-import com.example.cscb07final.*;
+import com.example.cscb07final.R;
 import com.example.cscb07final.databinding.AdminAddNewCourseBinding;
 
 import java.util.HashSet;
 
-public class AdminAddNewCourse extends Fragment {
+public class AdminAddNewCourse extends AppCompatActivity {
+
 
     private AdminAddNewCourseBinding binding;
     EditText textAddCourseName;
@@ -32,36 +28,34 @@ public class AdminAddNewCourse extends Fragment {
     TextView textAddCourseSessionDisplay;
     TextView textAdminMainInfo;
     View adminNewCourseView;
+    Button buttonGoBack;
+    Button buttonSaveNewCourse;
+    Button buttonAddPrereq;
+    Button buttonAddSession;
 
-    @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-        this.adminNewCourseView = inflater.inflate(R.layout.admin_add_new_course, container, false);
-        binding = AdminAddNewCourseBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
 
-    // AdminAddCourseFeedback
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.admin_add_new_course);
         HashSet<String> offeringSessions = new HashSet<String>();
         HashSet<String> prerequisites = new HashSet<String>();
 
-        textAddCourseCode = (EditText) view.findViewById(R.id.editTextNewCourseCode);
-        textAddCourseName = (EditText) view.findViewById(R.id.editTextNewCourseName);
-        textAddCourseSession = (EditText) view.findViewById(R.id.editTextNewSession);
-        textAddCoursePrerequisite = (EditText) view.findViewById(R.id.editTextNewPrerequisite);
-        textAddCoursePrerequisiteCount = (TextView) view.findViewById(R.id.adminAddCoursePrerequisiteCount);
-        textAddCoursePrerequisiteDisplay = (TextView) view.findViewById(R.id.adminAddCoursePrerequisiteDisplay);
-        textAdminMainInfo = (TextView) view.findViewById(R.id.admin_last_action_textview);
-        textAddCourseSessionCount = (TextView) view.findViewById(R.id.adminAddCourseSessionCount);
-        textAddCourseSessionDisplay = (TextView) view.findViewById(R.id.adminAddCourseSessionDisplay);
+        textAddCourseCode = (EditText) findViewById(R.id.editTextNewCourseCode);
+        textAddCourseName = (EditText) findViewById(R.id.editTextNewCourseName);
+        textAddCourseSession = (EditText) findViewById(R.id.editTextNewSession);
+        textAddCoursePrerequisite = (EditText) findViewById(R.id.editTextNewPrerequisite);
+        textAddCoursePrerequisiteCount = (TextView) findViewById(R.id.adminAddCoursePrerequisiteCount);
+        textAddCoursePrerequisiteDisplay = (TextView) findViewById(R.id.adminAddCoursePrerequisiteDisplay);
+        textAddCourseSessionCount = (TextView) findViewById(R.id.adminAddCourseSessionCount);
+        textAddCourseSessionDisplay = (TextView) findViewById(R.id.adminAddCourseSessionDisplay);
+        buttonGoBack = (Button) findViewById(R.id.returnAdminHomeButton) ;
+        buttonSaveNewCourse = (Button) findViewById(R.id.adminSaveNewCourseButton);
+        buttonAddPrereq = (Button) findViewById(R.id.adminNewCourseAddPrerequisiteButton);
+        buttonAddSession = (Button) findViewById(R.id.adminNewCourseAddSessionButton);
         textAddCourseSessionCount.setText("0");
         textAddCoursePrerequisiteDisplay.setText("0");
 
-        binding.adminNewCourseAddPrerequisiteButton.setOnClickListener(new View.OnClickListener() {
+        buttonAddPrereq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addPrerequisiteText(prerequisites);
@@ -69,7 +63,7 @@ public class AdminAddNewCourse extends Fragment {
             }
         });
 
-        binding.adminNewCourseAddSessionButton.setOnClickListener(new View.OnClickListener() {
+        buttonAddSession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addSessionText(offeringSessions);
@@ -77,16 +71,16 @@ public class AdminAddNewCourse extends Fragment {
             }
         });
 
-        binding.returnAdminHomeButton.setOnClickListener(new View.OnClickListener() {
+        buttonGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(AdminAddNewCourse.this)
-                        .navigate(R.id.action_AdminAddNewCourseFragment_to_AdminHomeFragment);
+
+                startActivity(new Intent( AdminAddNewCourse.this, AdminMainActivity.class));
             }
         });
 
 
-        binding.adminSaveNewCourseButton.setOnClickListener(new View.OnClickListener() {
+        buttonSaveNewCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -105,8 +99,8 @@ public class AdminAddNewCourse extends Fragment {
 
                     Course newCourse = new Course(courseName, courseCode, offeringSessions, prerequisites);
                     am.addCourse(newCourse);
-                    NavHostFragment.findNavController(AdminAddNewCourse.this)
-                            .navigate(R.id.action_AdminAddNewCourseFragment_to_AdminHomeFragment);
+
+                    startActivity(new Intent( AdminAddNewCourse.this, AdminMainActivity.class));
                 }
             }
         });
@@ -142,11 +136,5 @@ public class AdminAddNewCourse extends Fragment {
             sessionNum++;
         }
         return combinedString;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 }

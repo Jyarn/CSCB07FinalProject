@@ -1,55 +1,19 @@
 package Administrator;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.cscb07final.*;
+import com.example.cscb07final.R;
 import com.example.cscb07final.databinding.AdminEditCourseBinding;
 
-public class AdminEditCourse extends Fragment {
+public class AdminEditCourse extends AppCompatActivity {
 
     private AdminEditCourseBinding binding;
 
-    @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.admin_edit_course);
 
-        binding = AdminEditCourseBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-
-    }
-
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        binding.returnAdminHomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(AdminEditCourse.this)
-                        .navigate(R.id.action_AdminEditCourseFragment_to_AdminHomeFragment);
-            }
-        });
-
-        binding.adminSaveEditedCourseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(AdminEditCourse.this)
-                        .navigate(R.id.action_AdminEditCourseFragment_to_AdminHomeFragment);
-            }
-        });
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 }
