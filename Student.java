@@ -52,17 +52,56 @@ public class Student {
         return ret;
     }
 
-    public Tree genTree () {
-        // match course to their prerequisites organized in a treee
-        // courses with the same dependencies will be linked together
+    public Tree genTree (ArrayList<String> reqCourses) {
+        // public facing wrapper genTree
+
+
+        // merge courses no duplicates
+        ArrayList<String> mrgdCrrss = new ArrayList<String>(); // merged courses
+
+        //merge stored courses that have not been completed
+        for (Course_Student i : courses) {
+            if (!i.completed && !mrgdCrrss.contains(i.courseCode)) {
+                mrgdCrrss.add(i.courseCode);
+            }
+        }
+
+        // merge courses as requested by generateTimetable
+        for (String i : reqCourses) {
+            if (!mrgdCrrss.contains(i)) {
+                mrgdCrrss.add(i);
+            }
+        }
+
+        // loop through all courses then append to HEAD, subtree generation is handled by genTree(Tree r)
+        Tree head = new Tree("__HEAD__");
+
+        while (mrgdCrrss.size() != 0) {
+            Tree appd = genTree(head, mrgdCrrss.get(0));
+            mrgdCrrss.remove(0);
+
+            head.addNode(appd);
+        }
+
+        return head;
+    }
+
+    private Tree genTree (Tree r, String imprt) {
+        // match course to their prerequisites organized in a tree
         //
-        // only includes courses that are necessary, so if a prerequisite course has been
-        // completed it will not be completed
-        return new Tree();
+        // only include courses that are necessary, so if a prerequisite course has been
+        // completed it will not be added
+        //
+        // duplicates nodes are not a bug but a feature
+        return null;
     }
 
     public HashMap<String, ArrayList<String>> generateTimetable (ArrayList<String> courses) {
         // prepare for recurison
+        // I refer to dependencies and prerequisites as the same thing
+        HashMap<String, Course> rawData = ddbPull();
+        genTree(courses);
+
         return null;
     }
 

@@ -2,9 +2,11 @@ import java.util.ArrayList;
 
 public class Tree {
     ArrayList<Tree> nodes;
+    String val;
 
-    public Tree () {
+    public Tree (String val) {
         this.nodes = new ArrayList<Tree>();
+        this.val = val;
     }
 
     public void addNode (Tree add) {
@@ -12,6 +14,8 @@ public class Tree {
     }
 
     public void rmNode (Tree rm) {
+        // broken way to remove a node but for this context it should be fine?
+        // to be deleted probably
         this.nodes.remove(rm);
     }
 }
