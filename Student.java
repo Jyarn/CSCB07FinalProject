@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 // TODO:
-// add full course list
 // listSessions
 //
 // genTree (Course matching)
@@ -10,6 +10,8 @@ import java.util.HashMap;
 // genTree (generating tree)
 //
 // generateTimetable
+//
+// add full course list
 
 public class Student {
     ArrayList<Course_Student> courses;
@@ -24,7 +26,18 @@ public class Student {
 
     public ArrayList<String> listSessions (HashMap<String, Course> parse) {
         // return a sorted list of all sessions
-        return new ArrayList<String>();
+        ArrayList<String> r = new ArrayList<String>();
+
+        for (String key : parse.keySet()) {
+            for (String c : parse.get(key).sessions) {
+                if (!r.contains(c)) {
+                    r.add(c);
+                }
+            }
+        }
+
+        r.sort(new SessionSorter());
+        return r;
     }
 
     public HashMap<String, Course> ddbPull () {
@@ -48,9 +61,12 @@ public class Student {
         return new Tree();
     }
 
-    public HashMap<String, ArrayList<String>> generateTimetable (String[] courses) {
-        HashMap<String, ArrayList<String>> ret = new HashMap<String, ArrayList<String>>();
-        ret.put("Fall 2022", null);
-        return ret;
+    public HashMap<String, ArrayList<String>> generateTimetable (ArrayList<String> courses) {
+        // prepare for recurison
+        return null;
+    }
+
+    private HashMap<String, ArrayList<String>> RECURSE_genTimetable (ArrayList<String> courses) {
+        return null;
     }
 }
