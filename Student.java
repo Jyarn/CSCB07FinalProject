@@ -52,7 +52,7 @@ public class Student {
         return ret;
     }
 
-    public Tree genTree (ArrayList<String> reqCourses) {
+    public Tree genTree (ArrayList<String> reqCourses, HashMap<String, Course> courseRef) {
         // public facing wrapper genTree
 
 
@@ -77,7 +77,7 @@ public class Student {
         Tree head = new Tree("__HEAD__");
 
         while (mrgdCrrss.size() != 0) {
-            Tree appd = genTree(head, mrgdCrrss.get(0));
+            Tree appd = genTree(head, mrgdCrrss.get(0), courseRef);
             mrgdCrrss.remove(0);
 
             head.addNode(appd);
@@ -86,21 +86,44 @@ public class Student {
         return head;
     }
 
-    private Tree genTree (Tree r, String imprt) {
+    private Tree genTree (Tree r, String imprt, HashMap<String, Course> courseRef) {
+        //                            Tree r -    Tree HEAD
+        //                      String imprt -    Course Code of course to be added to tree
+        // HashMap<String, Course> courseRef -    List of all course + deps in database
+
         // match course to their prerequisites organized in a tree
         //
         // only include courses that are necessary, so if a prerequisite course has been
         // completed it will not be added
         //
         // duplicates nodes are not a bug but a feature
-        return null;
+        Tree pass = new Tree(imprt);
+        r.addNode(pass);
+
+        boolean hasBeenCompleted = false;
+
+        for (String i : courseRef.get(imprt).prerequisite) {
+            for (Course_Student j : courses) {
+                if (j.courseCode.equals(i) && j.completed) {
+                    hasBeenCompleted = true;
+                    break;
+                }
+            }
+
+            if (!hasBeenCompleted) {
+                hasBeenCompleted = false;
+                genTree(pass, i, courseRef);
+            }
+        }
+
+        return r;
     }
 
     public HashMap<String, ArrayList<String>> generateTimetable (ArrayList<String> courses) {
         // prepare for recurison
         // I refer to dependencies and prerequisites as the same thing
         HashMap<String, Course> rawData = ddbPull();
-        genTree(courses);
+        genTree(courses, rawData);
 
         return null;
     }
