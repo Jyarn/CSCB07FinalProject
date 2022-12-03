@@ -22,10 +22,19 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+
+import ddb.Database;
 import login.Run;
+import login.Student;
 
 public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    DatabaseReference firebaseDatabase;
+
+static Database currentUserDatabase;
+    static DatabaseReference currentUserLogged;
     EditText email;
     EditText password;
     Button btnLogin;
@@ -34,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     String possiblePattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     Spinner spinner;
     String userType;
+    String myEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +52,6 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         TextView textView = findViewById(R.id.signUp);
         email = findViewById(R.id.inputUserName);
         password = findViewById(R.id.inputPassword);
-        //password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         btnLogin=findViewById(R.id.loginButton);
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
@@ -78,7 +87,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
 
     private void performAuthentication() {
 
-        String myEmail = email.getText().toString();
+        myEmail = email.getText().toString();
         String myPassword = password.getText().toString();
         if (!myEmail.matches(possiblePattern)) {
             email.setError("invalid email");
@@ -89,9 +98,11 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
+                        firebaseDatabase=FirebaseDatabase.getInstance("https://cscb07finalproject-default-rtdb.firebaseio.com/").getReference();
+                       currentUserLogged= firebaseDatabase.child("Students").child(task.getResult().getUser().getUid());
                         goToNextActivity();
-
                     }
+
                     else{
 
                         Toast.makeText(LoginActivity.this,"login failed",Toast.LENGTH_SHORT ).show();
@@ -101,16 +112,17 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
             });
         }
 
+
     }
 
-    private void goToNextActivity() {
-        if(userType.equalsIgnoreCase("admin")){
-        Intent intent=new Intent(app.LoginActivity.this,app.AdminActivity.class);
-        startActivity(intent);}
-        else{
+    private void goToNextActivity(){
 
+        if(userType.equalsIgnoreCase("admin")){
+            Intent intent=new Intent(app.LoginActivity.this,app.AdminActivity.class);
+            startActivity(intent);}
+        else{
             Intent intent2=new Intent(app.LoginActivity.this,app.StudentActivity.class);
             startActivity(intent2);}
 
-        }
+    }
 }

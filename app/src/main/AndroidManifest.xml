@@ -13,6 +13,20 @@
         android:theme="@style/Theme.CSCB07Final"
         tools:targetApi="31">
         <activity
+            android:name="app.ViewCourses"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="app.Generate"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name="app.StudentActivity"
             android:exported="false">
             <meta-data

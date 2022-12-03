@@ -86,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void toNextActivity(){
-        Intent intent=new Intent(RegisterActivity.this, FirstFragment.class);
+        Intent intent=new Intent(RegisterActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
