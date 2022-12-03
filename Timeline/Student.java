@@ -55,6 +55,9 @@ public class Student {
         r = new Course(new String[]{"CSCA08"}, new String[]{"Winter 2023"});
         ret.put("CSCA67", r);
 
+        //r = new Course(new String[]{}, new String[]{"Winter 2023"});
+        //ret.put("CSCA67", r);
+
         r = new Course(new String[]{}, new String[]{"Summer 2023", "Winter 2023"});
         ret.put("MATA22", r);
 
@@ -88,26 +91,26 @@ public class Student {
         return ret;
     }
 
+    public boolean hasBeenCompleted (String course) {
+        for (Course_Student i : courses) {
+            if (i.completed && i.courseCode.equals(course)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public int importPrereqs (HashMap<String, Course> courseRef, ArrayList<String> reqCourses) {
         int r = 0; // number of courses that have been imported
-        boolean hasBeenCompleted = false;
         ArrayList<String> m = new ArrayList<String>();
 
         for (String i : reqCourses) {
             for (String j : courseRef.get(i).prerequisite) {
-                for (Course_Student k : courses) {
-                    if (k.courseCode.equals(j) && k.completed) {
-                        hasBeenCompleted = true;
-                        break;
-                    }
-                }
-
-                if (!hasBeenCompleted && !reqCourses.contains(j)) {
+                if (!hasBeenCompleted(j) && !reqCourses.contains(j)) {
                     m.add(j);
                     r += 1;
                 }
-
-                hasBeenCompleted = false;
             }
         }
 
@@ -183,6 +186,7 @@ public class Student {
         for (int index = i; index < sessions.size(); index++) {
             for (String preReq : courseRef.get(courseReq).prerequisite) {
                 ArrayList<String> sess = v.get(sessions.get(index));
+                if (hasBeenCompleted(preReq)) { continue; }
                 if (sess.contains(preReq)) {
                     return false;
                 }
