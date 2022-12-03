@@ -14,20 +14,10 @@ public abstract class Timeline {
     ArrayList<Course_Student> courses;
 
     private ArrayList<String> listSessions (HashMap<String, Course> parse) {
-        // return a sorted list of all sessions
         ArrayList<String> r = new ArrayList<String>();
-
-        for (String key : parse.keySet()) {
-            for (String c : parse.get(key).getSessions()) {
-                if (!r.contains(c)) {
-                    r.add(c);
-                }
-            }
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            r.sort(new SessionSorter());
-        }
+        r.add("Fall");
+        r.add("Winter");
+        r.add("Summer");
         return r;
     }
 
@@ -106,6 +96,13 @@ public abstract class Timeline {
         ArrayList<String> mergedCourses = mergeCourses(reqCourses);
 
         while (importPrereqs(rawData, mergedCourses) != 0) { }
+
+        ArrayList<String> opt = new ArrayList<String>();
+        for (String i : mergedCourses) {
+            opt.add(0, i);
+        }
+
+        mergedCourses = opt;
 
         HashMap<String, ArrayList<String>> ret = new HashMap<String, ArrayList<String>>();
 
