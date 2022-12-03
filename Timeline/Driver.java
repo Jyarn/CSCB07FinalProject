@@ -23,5 +23,11 @@ public class Driver {
 
         System.out.println(std.generateTimetable(new ArrayList<String>()));
         in.close();
+
+        std = new Student(new ArrayList<Course_Student>());
+        ArrayList<String> o = new ArrayList<String>();
+        o.add("MATB24");
+        o.add("CSCB07");
+        System.out.println(std.generateTimetable(o));
     }
 }
