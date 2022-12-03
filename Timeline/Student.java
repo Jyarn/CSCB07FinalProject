@@ -2,7 +2,7 @@ package Timeline;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Set;
 
 // TODO:
 // listSessions
@@ -88,75 +88,6 @@ public class Student {
         return ret;
     }
 
-    public Tree genTree (ArrayList<String> reqCourses, HashMap<String, Course> courseRef) {
-        // public facing wrapper genTree
-
-
-        // merge courses no duplicates
-        ArrayList<String> mrgdCrrss = new ArrayList<String>(); // merged courses
-
-        //merge stored courses that have not been completed
-        for (Course_Student i : courses) {
-            if (!i.completed && !mrgdCrrss.contains(i.courseCode)) {
-                mrgdCrrss.add(i.courseCode);
-            }
-        }
-
-        // merge courses as requested by generateTimetable
-        if (reqCourses != null) {
-            for (String i : reqCourses) {
-                if (!mrgdCrrss.contains(i)) {
-                    mrgdCrrss.add(i);
-                }
-            }
-        }
-
-        // loop through all courses then append to HEAD, subtree generation is handled by genTree(Tree r)
-        Tree head = new Tree("__HEAD__");
-
-        while (mrgdCrrss.size() != 0) {
-            genTree(head, mrgdCrrss.get(0), courseRef);
-            mrgdCrrss.remove(0);
-        }
-
-        return head;
-    }
-
-    private Tree genTree (Tree r, String imprt, HashMap<String, Course> courseRef) {
-        //                            Tree r -    Tree HEAD
-        //                      String imprt -    Course Code of course to be added to tree
-        // HashMap<String, Course> courseRef -    List of all course + deps in database
-
-        // match course to their prerequisites organized in a tree
-        //
-        // only include courses that are necessary, so if a prerequisite course has been
-        // completed it will not be added
-        //
-        // duplicates nodes are not a bug but a feature
-
-        Tree pass = new Tree(imprt);
-        r.addNode(pass);
-
-        boolean hasBeenCompleted = false;
-
-        for (String i : courseRef.get(imprt).prerequisite) {
-            for (Course_Student j : courses) {
-                if (j.courseCode.equals(i) && j.completed) {
-                    hasBeenCompleted = true;
-                    break;
-                }
-            }
-
-            if (!hasBeenCompleted) {
-                genTree(pass, i, courseRef);
-            }
-
-            hasBeenCompleted = false;
-        }
-
-        return r;
-    }
-
     public int importPrereqs (HashMap<String, Course> courseRef, ArrayList<String> reqCourses) {
         int r = 0; // number of courses that have been imported
         boolean hasBeenCompleted = false;
@@ -231,33 +162,47 @@ public class Student {
         return ret;
     }
 
-    public boolean validatePlacement (ArrayList<String> sessions, HashMap<String, Course> courseRef,
-    HashMap<String, ArrayList<String>> v, String reqCourse, String p) {
+    public boolean validate (ArrayList<String> sessions, HashMap<String, Course> courseRef,
+    HashMap<String, ArrayList<String>> v, String courseReq, int i) {
 
-        // session - list of all sessions
+        // sessions - list of all sessions
         // courseRef - all courses + their prerequisites/session dates
         // v - the thing being validated
-        // reqCourse - the course we wish to place in v
-        // p - the session date we wish to place reqCourse in
+        // courseReq - the course being validated
+        // i - index of the session courseReq is in (relative to sessions)
 
         /*
-            a placement for a requested course is considered valid if:
-             i. it is placed in a spot before its prerequisites (to ensure we go through all possible combination
+            a timetable is considered valid if:
+             i. if all course are placed in a spot before its prerequisites (to ensure we go through all possible combination
              we don't require each prerequisited to be in v)
 
-             ii. there aren't more than $(courseLimit) course in a session
+             ii. there aren't more than $(courseLimit) course in a session (checked in validatePlacement)
         */
 
+        // create a local copy of i so we don't modify it directly
+        for (int index = i; index < sessions.size(); index++) {
+            for (String preReq : courseRef.get(courseReq).prerequisite) {
+                ArrayList<String> sess = v.get(sessions.get(index));
+                if (sess.contains(preReq)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public boolean validatePlacement (HashMap<String, ArrayList<String>> ret, ArrayList<String> sessions,
+    HashMap<String, Course> courseRef) {
+
+        // wrapper class for validate to validate all of the courses in ret
+        // see validate for conditions
+
         int courseLimit = 6;
-        int pIndex = sessions.indexOf(p);
-
-        if (v.get(p).size() == courseLimit) { return false; }
-
-        for (int i = pIndex; i < sessions.size(); i++) {
-            for (String preReq : courseRef.get(reqCourse).prerequisite) {
-                String s = sessions.get(i);
-
-                if (v.get(s).contains(preReq)) {
+        for (int i = 0; i < sessions.size(); i++) {
+            if (ret.get(sessions.get(i)).size() > courseLimit) { return false; }
+            for (String c : ret.get(sessions.get(i))) {
+                if (!validate(sessions, courseRef, ret, c, i)) {
                     return false;
                 }
             }
@@ -268,29 +213,33 @@ public class Student {
 
     private boolean RECURSE_genTimetable (ArrayList<String> session, HashMap<String, Course> courseRef,
     HashMap<String, ArrayList<String>> ret, ArrayList<String> reqCourses) {
-        boolean success = false;
+        // recursive backtracker
+        ArrayList<String> s = new ArrayList<String>();
+        for (String i : reqCourses) { // thanks java
+            s.add(i);
+        }
 
-        // recurisve backtracker
-        for (String course : reqCourses) {
+        for (String course : s) {
             // find session
             for (String sess : courseRef.get(course).sessions) {
-                if (validatePlacement(session, courseRef, ret, course, sess)) {
-                    ret.get(sess).add(course);
-                    reqCourses.remove(course);
+                ret.get(sess).add(course);
+                reqCourses.remove(course);
 
+                if (validatePlacement(ret, session, courseRef)) {
                     if (RECURSE_genTimetable(session, courseRef, ret, reqCourses)) {
                         return true;
                     }
-
-                    ret.get(sess).remove(course);
-                    reqCourses.add(course);
                 }
+
+                ret.get(sess).remove(course);
+                reqCourses.add(course);
             }
         }
 
         if (reqCourses.size() == 0) {
             return true;
         }
+
         return false;
     }
 }
