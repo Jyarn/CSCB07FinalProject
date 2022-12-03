@@ -1,3 +1,5 @@
+package Timeline;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,6 +21,7 @@ public class Driver {
             proc = a.split(" ");
         }
 
+        System.out.println(std.generateTimetable(new ArrayList<String>()));
         in.close();
     }
 }

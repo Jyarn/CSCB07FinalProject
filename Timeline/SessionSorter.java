@@ -1,3 +1,5 @@
+package Timeline;
+
 import java.util.Comparator;
 
 public class SessionSorter implements Comparator<String> {

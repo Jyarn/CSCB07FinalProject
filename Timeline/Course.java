@@ -1,3 +1,5 @@
+package Timeline;
+
 public class Course {
     String[] prerequisite;
     String[] sessions;

@@ -1,3 +1,5 @@
+package Timeline;
+
 public class Course_Student {
     boolean completed;
     String courseCode;
