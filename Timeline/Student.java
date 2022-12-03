@@ -2,18 +2,6 @@ package Timeline;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
-
-// TODO:
-// listSessions
-//
-// genTree (Course matching)
-// genTree (import dependencies)
-// genTree (generating tree)
-//
-// generateTimetable
-//
-// add full course list
 
 public class Student {
     ArrayList<Course_Student> courses;
@@ -54,9 +42,6 @@ public class Student {
 
         r = new Course(new String[]{"CSCA08"}, new String[]{"Winter 2023"});
         ret.put("CSCA67", r);
-
-        //r = new Course(new String[]{}, new String[]{"Winter 2023"});
-        //ret.put("CSCA67", r);
 
         r = new Course(new String[]{}, new String[]{"Summer 2023", "Winter 2023"});
         ret.put("MATA22", r);
@@ -202,7 +187,7 @@ public class Student {
         // wrapper class for validate to validate all of the courses in ret
         // see validate for conditions
 
-        int courseLimit = 6;
+        int courseLimit = 1;
         for (int i = 0; i < sessions.size(); i++) {
             if (ret.get(sessions.get(i)).size() > courseLimit) { return false; }
             for (String c : ret.get(sessions.get(i))) {
