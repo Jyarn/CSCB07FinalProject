@@ -4,18 +4,24 @@ import java.util.Comparator;
 
 public class SessionSorter implements Comparator<String> {
     private double hash (String[] i) {
-        double r = Double.parseDouble(i[1]);
+        double r = 0;
 
-        if (i[0].equals("Winter")) {
-            r += 0.1;
+        if (i.length >= 1) {
+            if (i[0].equals("Winter")) {
+                r += 0.1;
+            }
+
+            else if (i[0].equals("Summer")) {
+                r += 0.2;
+            }
+
+            else if (i[0].equals("Fall")) {
+                r += 0.3;
+            }
         }
 
-        else if (i[0].equals("Summer")) {
-            r += 0.2;
-        }
-
-        else if (i[0].equals("Fall")) {
-            r += 0.3;
+        if (i.length >= 2) {
+            r = Double.parseDouble(i[1]);
         }
 
         return r;

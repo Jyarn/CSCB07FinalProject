@@ -20,7 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import Administrator.Driver;
+import Timeline.Driver;
 
 public class MainActivity extends AppCompatActivity {
     public static TextView funnyText;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        new Driver().main();
+        new Driver().Run();
     }
 
     @Override

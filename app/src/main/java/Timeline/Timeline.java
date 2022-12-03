@@ -1,5 +1,7 @@
 package Timeline;
 
+import android.os.Build;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,7 +25,9 @@ public abstract class Timeline {
             }
         }
 
-        r.sort(new SessionSorter());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            r.sort(new SessionSorter());
+        }
         return r;
     }
 
