@@ -187,7 +187,7 @@ public class Student {
         // wrapper class for validate to validate all of the courses in ret
         // see validate for conditions
 
-        int courseLimit = 1;
+        int courseLimit = 6;
         for (int i = 0; i < sessions.size(); i++) {
             if (ret.get(sessions.get(i)).size() > courseLimit) { return false; }
             for (String c : ret.get(sessions.get(i))) {
@@ -204,13 +204,14 @@ public class Student {
     HashMap<String, ArrayList<String>> ret, ArrayList<String> reqCourses) {
         // recursive backtracker
         ArrayList<String> s = new ArrayList<String>();
-        for (String i : reqCourses) { // thanks java
+        for (String i : reqCourses) {
             s.add(i);
         }
 
         for (String course : s) {
             // find session
-            for (String sess : courseRef.get(course).sessions) {
+            for (String sess : session) {
+                if (!courseRef.get(course).sessions.contains(sess)) { continue; }
                 ret.get(sess).add(course);
                 reqCourses.remove(course);
 
