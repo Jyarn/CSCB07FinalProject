@@ -15,6 +15,7 @@ public class TimelineInputActivity extends AppCompatActivity {
     Button tIRButton;
     Button gTButton;
     EditText courseInputEditText;
+    static String[] courseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class TimelineInputActivity extends AppCompatActivity {
     }
 
     private void generateTimeline() {
-        String[] courseList = courseInputEditText.getText().toString().split(" ");
+        courseList = courseInputEditText.getText().toString().split(" ");
         //need to implement backend here
         Intent intent2 = new Intent(app.TimelineInputActivity.this,app.TimelineActivity.class);
         startActivity(intent2);

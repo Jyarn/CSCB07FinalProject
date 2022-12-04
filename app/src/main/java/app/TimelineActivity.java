@@ -8,15 +8,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.cscb07final.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Timeline.Course_Student;
+import Timeline.Student;
+
 public class TimelineActivity extends AppCompatActivity {
 
     Button tRButton;
+    EditText courseInputEditText;
     ArrayList<TimelineModel> timelineModels = new ArrayList<TimelineModel>();
 
     @Override
@@ -24,6 +29,7 @@ public class TimelineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
+        //courseInputEditText = findViewById(R.id.courseInputEditText);
         tRButton = findViewById(R.id.tRButton);
         tRButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,18 +47,17 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void setUpTimelineModels() {
-        HashMap<String, ArrayList<String>> semesters = new HashMap<String, ArrayList<String>>();
-        ArrayList<String> a = new ArrayList<String>();
+        Student std = new Student(new ArrayList<Course_Student>());
+        ArrayList<String> req = new ArrayList<String>();
+        String[] courseList = TimelineInputActivity.courseList;
 
-        //test start
-        a.add("CSCB07");
-        a.add("CSCB09");
-        a.add("CSCB09");
-        a.add("CSCB09");
-        a.add("CSCB10");
-        semesters.put("Fall 2022", a);
-        semesters.put("Winter 2023", a);
-        //test end
+        for(String s: courseList) {
+            req.add(s);
+        }
+
+        HashMap<String, ArrayList<String>> semesters = std.generateTimetable(req);
+        //HashMap<String, ArrayList<String>> semesters = new HashMap<String, ArrayList<String>>();
+
         String coursesS;
         boolean first;
         int count = 0;
@@ -68,7 +73,7 @@ public class TimelineActivity extends AppCompatActivity {
                     first = false;
                     count ++;
                 }
-                if(first == false && count % 3 == 0) {
+                else if(first == false && count % 3 == 0) {
                     coursesS += ", \n" + s2;
                     count++;
                 }
