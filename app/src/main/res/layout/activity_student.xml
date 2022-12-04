@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,62 +11,44 @@
         android:id="@+id/addStudentCourseId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="282dp"
-        android:layout_marginBottom="49dp"
-        android:text="add course"
-        app:layout_constraintBottom_toTopOf="@+id/viewCourseStudentId"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="250dp"
+        android:layout_marginLeft="10dp"
+        android:text="add course" />
 
     <Button
         android:id="@+id/viewCourseStudentId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="265dp"
-        android:layout_marginBottom="46dp"
-        android:onClick="viewCourse"
-        android:text="view courses"
-        app:layout_constraintBottom_toTopOf="@+id/generateCourseTimelineId"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="350dp"
+        android:layout_marginLeft="10dp"
+        android:text="view courses" />
 
     <Button
         android:id="@+id/generateCourseTimelineId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="232dp"
-        android:layout_marginBottom="237dp"
-        android:text="generat timeline"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="450dp"
+        android:layout_marginLeft="10dp"
+        android:text="generate timeline" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="159dp"
         android:layout_marginTop="53dp"
-        android:layout_marginEnd="163dp"
-        android:text="Student Portal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginLeft="100dp"
+        android:textSize="32dp"
+        android:textColor="@color/white"
+        android:text="Student Portal" />
 
     <EditText
         android:id="@+id/courseTobeAddedId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="125dp"
-        android:layout_marginEnd="202dp"
-        android:layout_marginBottom="13dp"
-        android:ems="10"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="10dp"
         android:hint="enter coursecode "
         android:inputType="textPersonName"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/addStudentCourseId"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
