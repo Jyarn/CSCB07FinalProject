@@ -14,7 +14,10 @@ import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
+
 public class Database {
+    static Object ret;
     final String url = "https://cscb07finalproject-default-rtdb.firebaseio.com/";
     private DatabaseReference dir;
 
@@ -71,12 +74,27 @@ public class Database {
         try {
             Task<DataSnapshot> task = dir.get();
 
-            while (!task.isComplete()) {}
+            int i = 0;
+
+            while (!task.isComplete() && i < 10000) {
+                Thread.sleep(1);
+                i += 1;
+            }
 
             return task.getResult().getValue();
         }
 
         catch (DatabaseException err) {
+            Log.e("ddb", err.getMessage());
+            return "err";
+        }
+
+        catch (IllegalStateException err) {
+            Log.e("ddb", err.getMessage());
+            return "err";
+        }
+
+        catch (InterruptedException err) {
             Log.e("ddb", err.getMessage());
             return "err";
         }

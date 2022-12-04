@@ -15,8 +15,11 @@ import com.example.cscb07final.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Administrator.Course;
+import Administrator.ReadCourse;
 import Timeline.Course_Student;
 import Timeline.Student;
+import ddb.Database;
 
 public class TimelineActivity extends AppCompatActivity {
 
