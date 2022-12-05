@@ -33,7 +33,7 @@ static Database currentUserDatabase;
     EditText email;
     EditText password;
     Button btnLogin;
-    FirebaseAuth auth;
+    public static FirebaseAuth auth;
     FirebaseUser currentUser;
     String possiblePattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     Spinner spinner;

@@ -70,6 +70,7 @@ public class StudentActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                LoginActivity.auth.signOut();
                 startActivity(new Intent(StudentActivity.this, LoginActivity.class));
             }
         });
