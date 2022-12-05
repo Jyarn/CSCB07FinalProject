@@ -19,15 +19,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends LoginView {
 
     TextView alreadyHaveAcc;
     EditText email;
     EditText password;
     Button btnRegister;
     String possiblePattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    FirebaseAuth auth;
-    FirebaseUser currentUser;
+    LoginPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +36,8 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.inputUserName);
         password = findViewById(R.id.inputPassword);
         btnRegister = findViewById(R.id.registerButton);
-        auth = FirebaseAuth.getInstance();
-        currentUser = auth.getCurrentUser();
+
+
 
 
         TextView textView = findViewById(R.id.haveAccount);
@@ -48,47 +47,53 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             }
         });
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                performAuthentication();
+                performAuthentication(new CallBack() {
+                    @Override
+                    public Object callBack(Object ret) {
+                        // enter functionality here
+                        // if register returns true ret = true
+                        // if register returns false ret = false
+                        return null;
+                    }
+                });
             }
         });
 
-
+        this.presenter = new LoginPresenter(this);
     }
 
-    private void performAuthentication() {
-        String myEmail = email.getText().toString();
-        String myPassword = password.getText().toString();
-        if (!myEmail.matches(possiblePattern)) {
-            email.setError("invalid email");
-        } else if (myPassword.isEmpty() || myPassword.length() < 6) {
-            password.setError("invalid password");
-        } else {
-            auth.createUserWithEmailAndPassword(myEmail,myPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        toNextActivity();
-                        Toast.makeText(RegisterActivity.this ,"Registration successful",Toast.LENGTH_SHORT).show();
+    private void performAuthentication(CallBack callBack) {
+        presenter.setMyEmail(email.getText().toString());
+        presenter.setMyPassword(password.getText().toString());
 
-                    }else{
+        try {
+            presenter.register(callBack);
+        }
 
-                        Toast.makeText(RegisterActivity.this,"Registration failed",Toast.LENGTH_SHORT).show();
+        catch (Exception err) {
+            if (err.getMessage().equals("invalid email")) {
+                email.setError("Invalid Email (no spaces at the end, or email must have @gmail.com)");
+            }
 
-                    }
-                }
-            });
-
+            else if (err.getMessage().equals("invalid password")) {
+                password.setError("Invalid Password");
+            }
         }
     }
 
-    private void toNextActivity(){
+    void toNextActivity(){
         Intent intent=new Intent(RegisterActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    public void makeToast (String msg) {
+        Toast.makeText(RegisterActivity.this, msg,Toast.LENGTH_SHORT ).show();
     }
 
 }
