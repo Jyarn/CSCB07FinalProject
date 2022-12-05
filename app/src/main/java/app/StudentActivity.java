@@ -22,6 +22,7 @@ public class StudentActivity extends AppCompatActivity {
   String possiblePattern = "[a-zA-Z]+[0-9]";
   Button viewCourse;
   Button logout;
+  Button generateTimeline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,14 @@ public class StudentActivity extends AppCompatActivity {
         courseToBeAdded = findViewById(R.id.courseTobeAddedId);
         viewCourse=findViewById(R.id.viewCourseStudentId);
         logout =(Button) findViewById(R.id.StudentLogout);
+        generateTimeline=findViewById(R.id.generateCourseTimelineId);
+        generateTimeline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(app.StudentActivity.this,app.TimelineInputActivity.class);
+                startActivity(intent);
+            }
+        });
 
         viewCourse.setOnClickListener(new View.OnClickListener() {
             @Override

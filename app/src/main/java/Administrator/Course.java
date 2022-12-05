@@ -75,5 +75,12 @@ public class Course {
     public String toString() {
         return "Name: " + name + " - Course Code: " + courseCode;
     }
+    public HashSet<String> getSessions () {
+        return offeringSessions;
+    }
+
+    public HashSet<String> getPrerequisiteList () {
+        return prerequisites;
+    }
 }
 
