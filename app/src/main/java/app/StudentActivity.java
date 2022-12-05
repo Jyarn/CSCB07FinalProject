@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cscb07final.R;
 
+import Administrator.AdminMainActivity;
 
 
 public class StudentActivity extends AppCompatActivity {
@@ -20,6 +21,7 @@ public class StudentActivity extends AppCompatActivity {
     EditText courseToBeAdded;
   String possiblePattern = "[a-zA-Z]+[0-9]";
   Button viewCourse;
+  Button logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class StudentActivity extends AppCompatActivity {
         addCourseBtn = findViewById(R.id.addStudentCourseId);
         courseToBeAdded = findViewById(R.id.courseTobeAddedId);
         viewCourse=findViewById(R.id.viewCourseStudentId);
+        logout =(Button) findViewById(R.id.StudentLogout);
 
         viewCourse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +58,12 @@ public class StudentActivity extends AppCompatActivity {
             }
                });
 
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(StudentActivity.this, LoginActivity.class));
+            }
+        });
 
 
 
