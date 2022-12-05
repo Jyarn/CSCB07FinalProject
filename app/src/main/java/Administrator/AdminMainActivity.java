@@ -19,7 +19,7 @@ import java.util.HashSet;
 
 public class AdminMainActivity extends AppCompatActivity implements AdminCourseEditInterface  {
 
-    private AdminMainActivityBinding binding;
+    //private AdminMainActivityBinding binding;
     ArrayList<AdminCourseViewHolder> adminCourseViewHolders = new ArrayList<AdminCourseViewHolder>();
     AdminCourseManager acm;
     HashSet<Course> coursesHashSet;
@@ -54,7 +54,7 @@ public class AdminMainActivity extends AppCompatActivity implements AdminCourseE
             @Override
             public void onClick(View view) {
                 blink();
-                startActivity(new Intent(AdminMainActivity.this, app.MainActivity.class));
+                startActivity(new Intent(AdminMainActivity.this, app.LoginActivity.class));
             }
         });
         adminAddNew.setOnClickListener(new View.OnClickListener() {

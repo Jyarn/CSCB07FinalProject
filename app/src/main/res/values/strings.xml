@@ -31,5 +31,9 @@
     <string name="course_session_recycler">Course session:</string>
 
     <string name="cancel">Cancel</string>
+    <string-array name="user">
+        <item>admin</item>
+        <item>student</item>
+    </string-array>
 
 </resources>
