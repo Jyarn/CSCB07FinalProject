@@ -17,27 +17,34 @@ import com.example.cscb07final.databinding.AdminMainActivityBinding;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class AdminMainActivity extends AppCompatActivity {
+public class AdminMainActivity extends AppCompatActivity implements AdminCourseEditInterface  {
 
     private AdminMainActivityBinding binding;
     ArrayList<AdminCourseViewHolder> adminCourseViewHolders = new ArrayList<AdminCourseViewHolder>();
     AdminCourseManager acm;
     HashSet<Course> coursesHashSet;
     TextView textAdminMainCourseCount;
+    TextView adminDebugText;
+    AdminCourseRecyclerViewAdapter recyclerAdapter;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_main_activity);
+        //blink();
 
         textAdminMainCourseCount = (TextView) findViewById(R.id.text_admin_course_count);
         AdminCourseManager acm = AdminCourseManager.getInstance();
         coursesHashSet = acm.getCopyOfCourses();
         textAdminMainCourseCount.setText("Total courses: "+acm.courseCount());
+        adminDebugText = findViewById(R.id.admin_main_debug_text);
+        adminDebugText.setText(acm.debugText);
 
-        RecyclerView recyclerView = findViewById(R.id.admin_course_recycler_view);
+        recyclerView = findViewById(R.id.admin_course_recycler_view);
+
         setupAdminCourseViewHolders();
-        AdminCourseRecyclerViewAdapter recyclerAdapter = new AdminCourseRecyclerViewAdapter(this, adminCourseViewHolders);
+        recyclerAdapter = new AdminCourseRecyclerViewAdapter(this, adminCourseViewHolders, this);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -46,12 +53,14 @@ public class AdminMainActivity extends AppCompatActivity {
         adminLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                blink();
                 startActivity(new Intent(AdminMainActivity.this, app.MainActivity.class));
             }
         });
         adminAddNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                blink();
                 startActivity(new Intent(AdminMainActivity.this, AdminAddNewCourse.class));
             }
         });
@@ -59,8 +68,22 @@ public class AdminMainActivity extends AppCompatActivity {
 
     private void setupAdminCourseViewHolders(){
         for (Course course: coursesHashSet){
-            //recyclerHolders.add(new AdminRecyclerViewHolder(course.name, course.courseCode, course.getSessionCount(),course.getPrerequisiteCount()));
             adminCourseViewHolders.add(new AdminCourseViewHolder(course.name, course.courseCode));
         }
+    }
+
+    @Override
+    public void onClickToEdit(int position) {
+        blink();
+        Intent editIntent = new Intent(AdminMainActivity.this, AdminEditCourse.class);
+        editIntent.putExtra("Code", adminCourseViewHolders.get(position).getViewholderCourseCode());
+        startActivity(editIntent);
+    }
+
+    private void blink(){
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
     }
 }

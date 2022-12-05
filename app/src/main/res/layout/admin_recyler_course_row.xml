@@ -32,8 +32,8 @@
                 android:ems="10"
                 android:text=""
                 app:layout_constraintBottom_toTopOf="@+id/admin_course_recycler_code"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton"
-                app:layout_constraintStart_toEndOf="@+id/textViewRecyclerCourseName"
+                app:layout_constraintEnd_toStartOf="@+id/admin_course_recycler_edit_button"
+                app:layout_constraintStart_toEndOf="@+id/textViewAdminRecyclerGenericTitle"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -44,11 +44,11 @@
                 android:text="Course code: "
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/admin_course_recycler_code"
-                app:layout_constraintStart_toStartOf="@+id/textViewRecyclerCourseName"
+                app:layout_constraintStart_toStartOf="@+id/textViewAdminRecyclerGenericTitle"
                 app:layout_constraintTop_toTopOf="@+id/admin_course_recycler_code" />
 
             <TextView
-                android:id="@+id/textViewRecyclerCourseName"
+                android:id="@+id/textViewAdminRecyclerGenericTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -66,11 +66,11 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 app:layout_constraintBottom_toTopOf="@+id/space2"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                app:layout_constraintEnd_toStartOf="@+id/admin_course_recycler_edit_button"
                 app:layout_constraintStart_toEndOf="@+id/textViewRecyclerCourseCode" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/admin_course_recycler_edit_button"
                 android:layout_width="50dp"
                 android:layout_height="75dp"
                 android:layout_marginEnd="16dp"

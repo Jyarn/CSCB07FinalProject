@@ -40,8 +40,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
-        android:layout_width="320dp"
-        android:layout_height="429dp"
+        android:layout_width="338dp"
+        android:layout_height="451dp"
         android:layout_marginTop="-75dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +95,7 @@
                 android:id="@+id/adminNewCourseAddPrerequisiteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+ prereq"
+                android:text="Add  prereq:"
                 android:textStyle="bold" />
 
             <EditText
@@ -129,6 +129,7 @@
                 android:layout_height="wrap_content"
                 android:text="Total prereqs:"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/adminAddCoursePrerequisiteCount"
                 android:layout_width="wrap_content"
@@ -144,7 +145,7 @@
                 android:id="@+id/adminNewCourseAddSessionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+ session"
+                android:text="Add session:"
                 android:textStyle="bold" />
 
             <EditText
@@ -156,6 +157,7 @@
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -170,11 +172,13 @@
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total sessions:"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/adminAddCourseSessionCount"
                 android:layout_width="wrap_content"

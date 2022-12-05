@@ -6,14 +6,14 @@ public class AdminCourseManager {
 
     public static AdminCourseManager courseManager;
     //There probably is a better way to send this information around but I don't know how. Maybe through view binding or accessing the parent :\
-    protected HashSet<Course> allCourses;
+    public HashSet<Course> allCourses;
     String lastAction; String debugText;
 
     private AdminCourseManager(){
         allCourses = new HashSet<Course>();
         updateCourses();
         this.lastAction = "No recent action";
-        this.debugText = "Debug";
+        this.debugText = " ";
     }
 
     public void updateCourses(){
@@ -35,6 +35,9 @@ public class AdminCourseManager {
         HashSet<Course> newCopy = new HashSet<Course>();
         newCopy.addAll(allCourses);
         return newCopy;
+    }
+    public boolean hasCourse(String courseCode){
+        return false;
     }
 
     public void removeCourse(Course defunctCourse){

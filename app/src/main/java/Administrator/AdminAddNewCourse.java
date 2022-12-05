@@ -26,8 +26,7 @@ public class AdminAddNewCourse extends AppCompatActivity {
     TextView textAddCoursePrerequisiteDisplay;
     TextView textAddCourseSessionCount;
     TextView textAddCourseSessionDisplay;
-    TextView textAdminMainInfo;
-    View adminNewCourseView;
+    TextView textAdminDebugtext;
     Button buttonGoBack;
     Button buttonSaveNewCourse;
     Button buttonAddPrereq;
