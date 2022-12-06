@@ -2,11 +2,11 @@ package Timeline;
 
 import java.util.HashSet;
 
-public class Course {
+public class CRS {
     HashSet<String> prerequisite;
     HashSet<String> sessions;
 
-    public Course (String[] prerequisites, String[] sessions) {
+    public CRS (String[] prerequisites, String[] sessions) {
         this.prerequisite = new HashSet<String>();
         this.sessions = new HashSet<String>();
 

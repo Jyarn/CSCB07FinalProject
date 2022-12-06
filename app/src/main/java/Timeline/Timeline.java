@@ -1,12 +1,19 @@
 package Timeline;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import Administrator.Course;
 
 public abstract class Timeline {
     ArrayList<Course_Student> courses;
 
-    private ArrayList<String> listSessions (HashMap<String, Course> parse) {
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private ArrayList<String> listSessions (HashMap<String, CRS> parse) {
         // return a sorted list of all sessions
         ArrayList<String> r = new ArrayList<String>();
 
@@ -22,47 +29,47 @@ public abstract class Timeline {
         return r;
     }
 
-    private HashMap<String, Course> ddbPull () {
+    private HashMap<String, CRS> ddbPull () {
         // pull a set of all courses from the database
-        HashMap<String, Course> ret = new HashMap<String, Course>();
+        HashMap<String, CRS> ret = new HashMap<String, CRS>();
 
-        Course r = new Course(new String[]{}, new String[]{"Fall 2022","Winter 2023", "Summer 2023"});
+        CRS r = new CRS(new String[]{}, new String[]{"Fall 2022","Winter 2023", "Summer 2023"});
         ret.put("CSCA08", r);
 
-        r = new Course(new String[]{"CSCA08"}, new String[]{"Winter 2023", "Summer 2023"});
+        r = new CRS(new String[]{"CSCA08"}, new String[]{"Winter 2023", "Summer 2023"});
         ret.put("CSCA48", r);
 
-        r = new Course(new String[]{"CSCA08"}, new String[]{"Winter 2023"});
+        r = new CRS(new String[]{"CSCA08"}, new String[]{"Winter 2023"});
         ret.put("CSCA67", r);
 
-        r = new Course(new String[]{}, new String[]{"Summer 2023", "Winter 2023"});
+        r = new CRS(new String[]{}, new String[]{"Summer 2023", "Winter 2023"});
         ret.put("MATA22", r);
 
-        r = new Course(new String[]{}, new String[]{"Fall 2022","Winter 2023"});
+        r = new CRS(new String[]{}, new String[]{"Fall 2022","Winter 2023"});
         ret.put("MATA31", r);
 
-        r = new Course(new String[]{"MATA31", "CSCA67"}, new String[]{"Winter 2023", "Summer 2023"});
+        r = new CRS(new String[]{"MATA31", "CSCA67"}, new String[]{"Winter 2023", "Summer 2023"});
         ret.put("MATA37", r);
 
-        r = new Course(new String[]{"CSCA48"}, new String[]{"Fall 2022", "Summer 2023"});
+        r = new CRS(new String[]{"CSCA48"}, new String[]{"Fall 2022", "Summer 2023"});
         ret.put("CSCB07", r);
 
-        r = new Course(new String[]{"CSCA48"}, new String[]{"Winter 2023", "Summer 2023"});
+        r = new CRS(new String[]{"CSCA48"}, new String[]{"Winter 2023", "Summer 2023"});
         ret.put("CSCB09", r);
 
-        r = new Course(new String[]{"CSCA48", "CSCA67"}, new String[]{"Fall 2022", "Winter 2023", "Summer 2023"});
+        r = new CRS(new String[]{"CSCA48", "CSCA67"}, new String[]{"Fall 2022", "Winter 2023", "Summer 2023"});
         ret.put("CSCB36", r);
 
-        r = new Course(new String[]{"CSCA48"}, new String[]{"Fall 2022", "Winter 2023", "Summer 2023"});
+        r = new CRS(new String[]{"CSCA48"}, new String[]{"Fall 2022", "Winter 2023", "Summer 2023"});
         ret.put("CSCB58", r);
 
-        r = new Course(new String[]{"CSCA36"}, new String[]{"Fall 2022", "Winter 2023", "Summer 2023"});
+        r = new CRS(new String[]{"CSCA36"}, new String[]{"Fall 2022", "Winter 2023", "Summer 2023"});
         ret.put("CSCB63", r);
 
-        r = new Course(new String[]{"MATA22"}, new String[]{"Fall 2022", "Winter 2023", "Summer 2023"});
+        r = new CRS(new String[]{"MATA22"}, new String[]{"Fall 2022", "Winter 2023", "Summer 2023"});
         ret.put("MATB24", r);
 
-        r = new Course(new String[]{"MATA37"}, new String[]{"Fall 2022", "Winter 2023", "Summer 2023"});
+        r = new CRS(new String[]{"MATA37"}, new String[]{"Fall 2022", "Winter 2023", "Summer 2023"});
         ret.put("STAB52", r);
 
         return ret;
@@ -78,7 +85,7 @@ public abstract class Timeline {
         return false;
     }
 
-    private int importPrereqs (HashMap<String, Course> courseRef, ArrayList<String> reqCourses) {
+    private int importPrereqs (HashMap<String, CRS> courseRef, ArrayList<String> reqCourses) {
         int r = 0; // number of courses that have been imported
         ArrayList<String> m = new ArrayList<String>();
 
@@ -125,8 +132,11 @@ public abstract class Timeline {
         // prepare for recurison
         // I refer to dependencies and prerequisites as the same thing
 
-        HashMap<String, Course> rawData = ddbPull();
-        ArrayList<String> sessions = listSessions(rawData);
+        HashMap<String, CRS> rawData = ddbPull();
+        ArrayList<String> sessions = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            sessions = listSessions(rawData);
+        }
         ArrayList<String> mergedCourses = mergeCourses(reqCourses);
 
         while (importPrereqs(rawData, mergedCourses) != 0) { }
@@ -142,7 +152,7 @@ public abstract class Timeline {
         return ret;
     }
 
-    private boolean validate (ArrayList<String> sessions, HashMap<String, Course> courseRef,
+    private boolean validate (ArrayList<String> sessions, HashMap<String, CRS> courseRef,
                               HashMap<String, ArrayList<String>> v, String courseReq, int i) {
 
         // sessions - list of all sessions
@@ -173,7 +183,7 @@ public abstract class Timeline {
     }
 
     private boolean validatePlacement (HashMap<String, ArrayList<String>> ret, ArrayList<String> sessions,
-                                       HashMap<String, Course> courseRef) {
+                                       HashMap<String, CRS> courseRef) {
 
         // wrapper class for validate to validate all of the courses in ret
         // see validate for conditions
@@ -191,7 +201,7 @@ public abstract class Timeline {
         return true;
     }
 
-    private boolean RECURSE_genTimetable (ArrayList<String> session, HashMap<String, Course> courseRef,
+    private boolean RECURSE_genTimetable (ArrayList<String> session, HashMap<String, CRS> courseRef,
                                           HashMap<String, ArrayList<String>> ret, ArrayList<String> reqCourses) {
         // recursive backtracker
         ArrayList<String> s = new ArrayList<String>();
