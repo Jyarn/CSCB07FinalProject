@@ -55,8 +55,8 @@ public class TimelineActivity extends AppCompatActivity {
             req.add(s);
         }
 
-        //HashMap<String, ArrayList<String>> semesters = std.generateTimetable(req);
-        HashMap<String, ArrayList<String>> semesters = new HashMap<String, ArrayList<String>>();
+        HashMap<String, ArrayList<String>> semesters = std.generateTimetable(req);
+        //HashMap<String, ArrayList<String>> semesters = new HashMap<String, ArrayList<String>>();
 
         String coursesS;
         boolean first;
