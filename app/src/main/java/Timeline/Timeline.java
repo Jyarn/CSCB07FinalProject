@@ -3,43 +3,67 @@ package Timeline;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Administrator.Course;
-import Administrator.ReadCourse;
-import ddb.Database;
-
-
 public abstract class Timeline {
     ArrayList<Course_Student> courses;
 
     private ArrayList<String> listSessions (HashMap<String, Course> parse) {
+        // return a sorted list of all sessions
         ArrayList<String> r = new ArrayList<String>();
-        r.add("Fall");
-        r.add("Winter");
-        r.add("Summer");
+
+        for (String key : parse.keySet()) {
+            for (String c : parse.get(key).sessions) {
+                if (!r.contains(c)) {
+                    r.add(c);
+                }
+            }
+        }
+
+        r.sort(new SessionSorter());
         return r;
     }
 
     private HashMap<String, Course> ddbPull () {
         // pull a set of all courses from the database
-        Database ddb = new Database("https://cscb07finalproject-default-rtdb.firebaseio.com/", "Courses");
         HashMap<String, Course> ret = new HashMap<String, Course>();
-        Object a = ddb.read();
 
-        if (a instanceof HashMap) {
-            HashMap<String, String> coursesHM = (HashMap<String, String>) ddb.read();
+        Course r = new Course(new String[]{}, new String[]{"Fall 2022","Winter 2023", "Summer 2023"});
+        ret.put("CSCA08", r);
 
-            ret = new HashMap<String, Course>();
-            for (String i: coursesHM.keySet()) {
-                ret.put(i, ReadCourse.readCourse(i));
-            }
+        r = new Course(new String[]{"CSCA08"}, new String[]{"Winter 2023", "Summer 2023"});
+        ret.put("CSCA48", r);
 
-            return ret;
-        }
+        r = new Course(new String[]{"CSCA08"}, new String[]{"Winter 2023"});
+        ret.put("CSCA67", r);
 
-        else if ("err".equals(a)) {
+        r = new Course(new String[]{}, new String[]{"Summer 2023", "Winter 2023"});
+        ret.put("MATA22", r);
 
-        }
+        r = new Course(new String[]{}, new String[]{"Fall 2022","Winter 2023"});
+        ret.put("MATA31", r);
 
+        r = new Course(new String[]{"MATA31", "CSCA67"}, new String[]{"Winter 2023", "Summer 2023"});
+        ret.put("MATA37", r);
+
+        r = new Course(new String[]{"CSCA48"}, new String[]{"Fall 2022", "Summer 2023"});
+        ret.put("CSCB07", r);
+
+        r = new Course(new String[]{"CSCA48"}, new String[]{"Winter 2023", "Summer 2023"});
+        ret.put("CSCB09", r);
+
+        r = new Course(new String[]{"CSCA48", "CSCA67"}, new String[]{"Fall 2022", "Winter 2023", "Summer 2023"});
+        ret.put("CSCB36", r);
+
+        r = new Course(new String[]{"CSCA48"}, new String[]{"Fall 2022", "Winter 2023", "Summer 2023"});
+        ret.put("CSCB58", r);
+
+        r = new Course(new String[]{"CSCA36"}, new String[]{"Fall 2022", "Winter 2023", "Summer 2023"});
+        ret.put("CSCB63", r);
+
+        r = new Course(new String[]{"MATA22"}, new String[]{"Fall 2022", "Winter 2023", "Summer 2023"});
+        ret.put("MATB24", r);
+
+        r = new Course(new String[]{"MATA37"}, new String[]{"Fall 2022", "Winter 2023", "Summer 2023"});
+        ret.put("STAB52", r);
 
         return ret;
     }
@@ -59,7 +83,7 @@ public abstract class Timeline {
         ArrayList<String> m = new ArrayList<String>();
 
         for (String i : reqCourses) {
-            for (String j : courseRef.get(i).getPrerequisiteList()) {
+            for (String j : courseRef.get(i).prerequisite) {
                 if (!hasBeenCompleted(j) && !reqCourses.contains(j)) {
                     m.add(j);
                     r += 1;
@@ -98,7 +122,7 @@ public abstract class Timeline {
     }
 
     public HashMap<String, ArrayList<String>> generateTimetable (ArrayList<String> reqCourses) {
-        // prepare for recursion
+        // prepare for recurison
         // I refer to dependencies and prerequisites as the same thing
 
         HashMap<String, Course> rawData = ddbPull();
@@ -106,13 +130,6 @@ public abstract class Timeline {
         ArrayList<String> mergedCourses = mergeCourses(reqCourses);
 
         while (importPrereqs(rawData, mergedCourses) != 0) { }
-
-        ArrayList<String> opt = new ArrayList<String>();
-        for (String i : mergedCourses) {
-            opt.add(0, i);
-        }
-
-        mergedCourses = opt;
 
         HashMap<String, ArrayList<String>> ret = new HashMap<String, ArrayList<String>>();
 
@@ -126,7 +143,7 @@ public abstract class Timeline {
     }
 
     private boolean validate (ArrayList<String> sessions, HashMap<String, Course> courseRef,
-                              HashMap<String, ArrayList<String>> v, String courseReq, int i) {
+    HashMap<String, ArrayList<String>> v, String courseReq, int i) {
 
         // sessions - list of all sessions
         // courseRef - all courses + their prerequisites/session dates
@@ -138,12 +155,13 @@ public abstract class Timeline {
             a timetable is considered valid if:
              i. if all course are placed in a spot before its prerequisites (to ensure we go through all possible combination
              we don't require each prerequisited to be in v)
+
              ii. there aren't more than $(courseLimit) course in a session (checked in validatePlacement)
         */
 
         // create a local copy of i so we don't modify it directly
         for (int index = i; index < sessions.size(); index++) {
-            for (String preReq : courseRef.get(courseReq).getPrerequisiteList()) {
+            for (String preReq : courseRef.get(courseReq).prerequisite) {
                 ArrayList<String> sess = v.get(sessions.get(index));
                 if (hasBeenCompleted(preReq)) { continue; }
                 if (sess.contains(preReq)) {
@@ -156,7 +174,7 @@ public abstract class Timeline {
     }
 
     private boolean validatePlacement (HashMap<String, ArrayList<String>> ret, ArrayList<String> sessions,
-                                       HashMap<String, Course> courseRef) {
+    HashMap<String, Course> courseRef) {
 
         // wrapper class for validate to validate all of the courses in ret
         // see validate for conditions
@@ -175,7 +193,7 @@ public abstract class Timeline {
     }
 
     private boolean RECURSE_genTimetable (ArrayList<String> session, HashMap<String, Course> courseRef,
-                                          HashMap<String, ArrayList<String>> ret, ArrayList<String> reqCourses) {
+    HashMap<String, ArrayList<String>> ret, ArrayList<String> reqCourses) {
         // recursive backtracker
         ArrayList<String> s = new ArrayList<String>();
         for (String i : reqCourses) {
@@ -185,7 +203,7 @@ public abstract class Timeline {
         for (String course : s) {
             // find session
             for (String sess : session) {
-                if (!courseRef.get(course).getSessions().contains(sess)) { continue; }
+                if (!courseRef.get(course).sessions.contains(sess)) { continue; }
                 ret.get(sess).add(course);
                 reqCourses.remove(course);
 
