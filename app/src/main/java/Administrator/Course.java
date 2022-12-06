@@ -75,11 +75,11 @@ public class Course {
     public String toString() {
         return "Name: " + name + " - Course Code: " + courseCode;
     }
-    public HashSet<String> getSessions () {
+    public HashSet<String> fetchSessions () {
         return offeringSessions;
     }
 
-    public HashSet<String> getPrerequisiteList () {
+    public HashSet<String> fetchPrerequisiteList () {
         return prerequisites;
     }
 }
