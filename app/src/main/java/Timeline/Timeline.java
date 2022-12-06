@@ -20,28 +20,7 @@ public abstract class Timeline {
     }
 
     private HashMap<String, Course> ddbPull () {
-        // pull a set of all courses from the database
-        Database ddb = new Database("https://cscb07finalproject-default-rtdb.firebaseio.com/", "Courses");
-        HashMap<String, Course> ret = new HashMap<String, Course>();
-        Object a = ddb.read();
-
-        if (a instanceof HashMap) {
-            HashMap<String, String> coursesHM = (HashMap<String, String>) ddb.read();
-
-            ret = new HashMap<String, Course>();
-            for (String i: coursesHM.keySet()) {
-                ret.put(i, ReadCourse.readCourse(i));
-            }
-
-            return ret;
-        }
-
-        else if ("err".equals(a)) {
-
-        }
-
-
-        return ret;
+        return Course.listAllCourses();
     }
 
     private boolean hasBeenCompleted (String course) {

@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import Administrator.Driver;
 import ddb.Database;
 
 public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -64,10 +65,12 @@ static Database currentUserDatabase;
                 performAuthentication();
             }
         });
+
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.user, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+        //Driver.main();
     }
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

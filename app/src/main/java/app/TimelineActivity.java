@@ -2,6 +2,7 @@ package app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,8 @@ import com.example.cscb07final.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Administrator.AddCourse;
+import Administrator.Course;
 import Timeline.Course_Student;
 import Timeline.Student;
 
@@ -55,8 +58,8 @@ public class TimelineActivity extends AppCompatActivity {
             req.add(s);
         }
 
-        //HashMap<String, ArrayList<String>> semesters = std.generateTimetable(req);
-        HashMap<String, ArrayList<String>> semesters = new HashMap<String, ArrayList<String>>();
+        HashMap<String, ArrayList<String>> semesters = std.generateTimetable(req);
+        //HashMap<String, ArrayList<String>> semesters = new HashMap<String, ArrayList<String>>();
 
         String coursesS;
         boolean first;

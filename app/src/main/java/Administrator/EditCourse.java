@@ -4,6 +4,8 @@ import java.util.HashSet;
 
 import ddb.Database;
 
+//import ddb.Database;
+
 public class EditCourse {
 
     public static void replaceCourse(Course replacement, String courseToReplace) {
@@ -20,45 +22,14 @@ public class EditCourse {
     }
 
     public static void editCourseName(String courseCode, String newName) {
-        Database ddb = new Database("https://cscb07finalproject-default-rtdb.firebaseio.com/", "Courses");
-        ddb.cd(courseCode);
-        ddb.cd("name");
-        ddb.write(newName);
+        Course.AllCourses.get(courseCode).name = newName;
     }
 
     public static void editSessions(HashSet<String> sessions, String courseCode) {
-        Database ddb = new Database("https://cscb07finalproject-default-rtdb.firebaseio.com/", "Courses");
-        ddb.cd(courseCode);
-        ddb.cd("sessions");
-        ddb.remove();
-
-        int count = 1;
-        if(sessions.isEmpty() == true) ddb.write("none");
-        else {
-            for (String s : sessions) { //add a throws for invalid session input?
-                ddb.cd("session " + count);
-                ddb.write(s);
-                ddb.cd("..");
-                count++;
-            }
-        }
+        Course.AllCourses.get(courseCode).offeringSessions = sessions;
     }
 
     public static void editPrerequisites(HashSet<String> prerequisites, String courseCode) {
-        Database ddb = new Database("https://cscb07finalproject-default-rtdb.firebaseio.com/", "Courses");
-        ddb.cd(courseCode);
-        ddb.cd("prerequisites");
-        ddb.remove();
-
-        int count = 1;
-        if(prerequisites.isEmpty() == true) ddb.write("none");
-        else {
-            for (String p : prerequisites) {
-                ddb.cd("prerequisite " + count);
-                ddb.write(p);
-                ddb.cd("..");
-                count++;
-            }
-        }
+        Course.AllCourses.get(courseCode).prerequisites = prerequisites;
     }
 }

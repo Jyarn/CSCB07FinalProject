@@ -1,5 +1,6 @@
 package Administrator;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -8,6 +9,8 @@ public class Course {
     String courseCode;
     HashSet<String> offeringSessions;
     HashSet<String> prerequisites;
+
+    static HashMap<String, Course> AllCourses = new HashMap<String, Course>();
 
     public String getName() {
         return name;
@@ -81,6 +84,10 @@ public class Course {
 
     public HashSet<String> getPrerequisiteList () {
         return prerequisites;
+    }
+
+    public static HashMap<String, Course> listAllCourses () {
+        return AllCourses;
     }
 }
 
