@@ -54,9 +54,7 @@ public class AdminMainActivity extends AppCompatActivity implements AdminCourseE
             @Override
             public void onClick(View view) {
                 blink();
-                app.LoginActivity.auth.signOut();
                 startActivity(new Intent(AdminMainActivity.this, app.LoginActivity.class));
-
             }
         });
         adminAddNew.setOnClickListener(new View.OnClickListener() {
