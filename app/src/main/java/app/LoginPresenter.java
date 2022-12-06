@@ -66,6 +66,10 @@ public class LoginPresenter {
                 }
             }));
         }
+
+        else {
+            callBack.callBack(false);
+        }
     }
 
     public void goToNextActivity(){
@@ -109,6 +113,10 @@ public class LoginPresenter {
                     }
                 }
             }));
+        }
+
+        else {
+            callBack.callBack(false);
         }
     }
 
